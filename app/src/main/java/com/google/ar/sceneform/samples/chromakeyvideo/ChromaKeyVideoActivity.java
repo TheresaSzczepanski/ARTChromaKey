@@ -123,6 +123,11 @@ public class ChromaKeyVideoActivity extends AppCompatActivity {
           videoNode.setLocalScale(
               new Vector3(
                   VIDEO_HEIGHT_METERS * (videoWidth / videoHeight), VIDEO_HEIGHT_METERS, 1.0f));
+          
+          // Places the videoNode (video) parallel to the surface that it is placed on. This is achieved by using Quaternions (fancy vectors)
+          Quaternion q1 = anchorNode.getLocalRotation();
+          Quaternion q2 = Quaternion.axisAngle(new Vector3(1.0f, 0f, 0f), 90f);
+          videoNode.setLocalRotation(Quaternion.multiply(q1, q2));
 
           // Start playing the video when the first node is placed.
           if (!mediaPlayer.isPlaying()) {
